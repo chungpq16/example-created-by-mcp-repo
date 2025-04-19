@@ -17,10 +17,18 @@ This repository contains Kubernetes manifests for deploying Nginx with best prac
 3. **ConfigMap**
    - Custom Nginx configuration
 
+4. **Ingress**
+   - Host: example.avz.com
+   - Path: / (root path)
+   - No TLS configuration
+   - Uses nginx ingress controller
+
 ## Prerequisites
 
 - Kubernetes cluster
 - kubectl configured to connect to your cluster
+- Nginx Ingress Controller installed in your cluster
+- DNS configured to point example.avz.com to your ingress controller's IP
 
 ## Deployment
 
@@ -39,7 +47,15 @@ This repository contains Kubernetes manifests for deploying Nginx with best prac
    ```bash
    kubectl get pods
    kubectl get services
+   kubectl get ingress
    ```
+
+4. Access the application:
+   - Add the following to your /etc/hosts file:
+     ```
+     <ingress-controller-ip> example.avz.com
+     ```
+   - Visit http://example.avz.com in your browser
 
 ## Configuration
 
@@ -47,6 +63,7 @@ This repository contains Kubernetes manifests for deploying Nginx with best prac
 - Resource limits: 200m CPU, 256Mi memory
 - Resource requests: 100m CPU, 128Mi memory
 - Custom Nginx configuration is mounted from ConfigMap
+- Ingress is configured for host example.avz.com
 
 ## Scaling
 
